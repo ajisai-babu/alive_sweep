@@ -32,7 +32,7 @@ optional arguments:
 - 扫描oneforall生成的csv文件
 
   ```shell
-  python alive_sweep.py -c ahstu.edu.cn.csv
+  python alive_sweep.py -c a.edu.cn.csv
   ```
 
 - 自定义输出文件名[默认是当前时间.txt]
@@ -44,5 +44,5 @@ optional arguments:
 - 自定义线程[默认是100]
 
   ```shell
-  python alive_sweep.py -c ahstu.edu.cn.csv -t 400 -o ahstu.txt
+  python alive_sweep.py -c a.edu.cn.csv -t 400 -o a.txt
   ```
