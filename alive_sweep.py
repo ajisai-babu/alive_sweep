@@ -8,6 +8,7 @@ import requests
 import csv
 from lib.cmdline import cmdline_parser
 from urllib.parse import urlparse
+from tqdm import tqdm
 
 
 def load_url(url, timeout):
@@ -58,16 +59,23 @@ def file_output(filename, url):
 
 
 def sweep():
+    pbar = tqdm(total=len(urls))
+
     with concurrent.futures.ThreadPoolExecutor(max_workers=connections) as executor:
         future_to_url = (executor.submit(load_url, url, timeout) for url in urls)
         for future in concurrent.futures.as_completed(future_to_url):
             try:
                 data = future.result()
-                print(data[1])
+                pbar.set_description("Processing %s" % str(data[1]))
+                # print(data[1])
             except Exception as exc:
                 data = None
             finally:
                 out.append(data)
+                pbar.update(1)
+
+    pbar.set_description_str("Done! ")
+    pbar.close()
 
 
 if __name__ == '__main__':
