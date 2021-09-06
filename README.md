@@ -15,6 +15,8 @@ optional arguments:
   -o OUTPUT, --output OUTPUT
                         输出结果URL到文件(default=[time].txt)
   -c CSV, --csv CSV     oneforall输出csv文件直接扫描
+  -r RAPID, --rapid RAPID
+                        RapidDNS输出csv文件直接扫描
   -t THREAD, --thread THREAD
                         扫描线程设置(default=100)
 
