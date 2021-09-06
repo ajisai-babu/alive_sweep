@@ -58,4 +58,5 @@ optional arguments:
 - 优化！
   - 添加RapidDNS导出csv文件重复域名去重  
   - 对相同域名可能输出http和https两个结果进行去重处理
+  - 将请求url直接打印至控制台修改为更为直观的进度条
   
