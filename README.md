@@ -46,3 +46,14 @@ optional arguments:
   ```shell
   python alive_sweep.py -c a.edu.cn.csv -t 400 -o a.txt
   ```
+
+- 新增！扫描RapidDNS导出的csv文件
+
+  ```shell
+  python alive_sweep.py -r baidu.com.csv 
+  ```
+  
+- 优化！
+  - 添加RapidDNS导出csv文件重复域名去重  
+  - 对相同域名可能输出http和https两个结果进行去重处理
+  
