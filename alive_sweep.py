@@ -7,6 +7,7 @@ import concurrent.futures
 import requests
 import csv
 from lib.cmdline import cmdline_parser
+from urllib.parse import urlparse
 
 
 def load_url(url, timeout):
@@ -29,6 +30,22 @@ def csv_read(filename):
             reader = csv.DictReader(f)
             for i in reader:
                 url_list.append(i['url'])
+    return url_list
+
+
+def rapid_read(filename):
+    url_list = []
+    url_original = []
+    if 'csv' in filename:
+        with open(filename, encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            for i in reader:
+                url_original.append("http://" + i['Domain'])
+                url_original.append("https://" + i['Domain'])
+
+    for x in url_original:
+        if x not in url_list:
+            url_list.append(x)
     return url_list
 
 
@@ -58,9 +75,12 @@ if __name__ == '__main__':
     out = []
     connections = args.thread
     timeout = 5
+    domains = []
 
     if args.csv is not None:
         urls = csv_read(args.csv)
+    elif args.rapid is not None:
+        urls = rapid_read(args.rapid)
     else:
         urls = file_read(args.file)
 
@@ -69,5 +89,11 @@ if __name__ == '__main__':
     if args.output is not None:
         for i in out:
             if i is not None:
-                file_output(args.output, i[1])
+                domain = urlparse(str(i[1])).netloc
+                # print(domain)
+
+                if domain not in domains:
+                    # print(domain)
+                    file_output(args.output, i[1])
+                domains.append(domain)
 
